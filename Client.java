@@ -11,6 +11,8 @@ public class Client {
 
         String host = "localhost";
         int port = 8282;
+//        запускаем блок try с ресурсами, создаём в нём класс Socket, передаём через буффер и поток вывода
+//        строку на сервер
         try (Socket clientSocket = new Socket(host, port);
              PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
              BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {

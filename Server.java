@@ -11,18 +11,19 @@ public class Server {
     public static void main(String[] args) throws IOException {
 
         int port = 8282;
-        while (true) {
-            ServerSocket serverSocket = new ServerSocket(port);
+        try (ServerSocket serverSocket = new ServerSocket(port);
             Socket clientSocket = serverSocket.accept();
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))){
             System.out.println("New connection accepted");
 
             final String message = in.readLine();
             System.out.println(String.format("%s; port is %d", message, clientSocket.getPort()));
             serverSocket.close();
 
-            break;
+
+        } catch (IOException e){
+            e.printStackTrace();
         }
     }
 }
